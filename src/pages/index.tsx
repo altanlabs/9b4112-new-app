@@ -1,40 +1,9 @@
 import { motion } from "framer-motion"
 import { Plus, Filter } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { ProductCard } from "@/components/blocks/product-card"
 import { SearchBar } from "@/components/blocks/search-bar"
 import { CategoryFilter } from "@/components/blocks/category-filter"
-
-// Temporary mock data
-const mockProducts = [
-  {
-    id: "1",
-    title: "TaylorMade SIM2 Driver",
-    price: 399.99,
-    condition: "Like New",
-    imageUrl: "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?ixlib=rb-4.0.3",
-    category: "Golf Clubs",
-    location: "Miami, FL"
-  },
-  {
-    id: "2",
-    title: "Titleist Pro V1 Golf Balls (12-Pack)",
-    price: 49.99,
-    condition: "New",
-    imageUrl: "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?ixlib=rb-4.0.3",
-    category: "Golf Balls",
-    location: "Austin, TX"
-  },
-  {
-    id: "3",
-    title: "Callaway RAZR X Irons Set",
-    price: 599.99,
-    condition: "Good",
-    imageUrl: "https://images.unsplash.com/photo-1632332274165-839049fe7619?ixlib=rb-4.0.3",
-    category: "Golf Clubs",
-    location: "Phoenix, AZ"
-  },
-]
+import { FeaturedProducts } from "@/components/blocks/featured-products"
 
 export default function IndexPage() {
   const handleSearch = (query: string) => {
@@ -79,17 +48,8 @@ export default function IndexPage() {
         </div>
       </div>
 
-      {/* Products Grid */}
-      <motion.div 
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      >
-        {mockProducts.map((product) => (
-          <ProductCard key={product.id} {...product} />
-        ))}
-      </motion.div>
+      {/* Featured Products */}
+      <FeaturedProducts />
     </div>
   )
 }
