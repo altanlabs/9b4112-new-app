@@ -1,4 +1,4 @@
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AppSidebar } from "@/components/blocks/app-sidebar-collapsible-tree";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -64,6 +64,7 @@ interface LayoutProps {
   sidebarConfig?: SidebarProps;
   header?: HeaderProps | false;
   footer?: FooterProps | false;
+  children: React.ReactNode;
 }
 
 const DefaultNavigation: NavItem[] = [
@@ -100,12 +101,12 @@ export default function Layout({
   sidebarConfig,
   header = DefaultHeader,
   footer = DefaultFooter,
+  children,
 }: LayoutProps) {
   const location = useLocation();
   const { theme, setTheme } = useTheme();
   const initialThemeSet = useRef(false);
 
-  // Move theme parameter handling to useEffect
   useEffect(() => {
     if (initialThemeSet.current) return;
     
@@ -113,7 +114,6 @@ export default function Layout({
     const themeParam = queryParams.get('theme');
     if (themeParam === 'light' || themeParam === 'dark') {
       setTheme(themeParam);
-      // Remove the theme parameter from URL
       queryParams.delete('theme');
       const newSearch = queryParams.toString();
       const newUrl = `${location.pathname}${newSearch ? `?${newSearch}` : ''}${location.hash}`;
@@ -231,7 +231,7 @@ export default function Layout({
 
         {/* Main Content Area */}
         <main className="flex-1 overflow-auto bg-background">
-          <Outlet />
+          {children}
         </main>
 
         {/* Footer */}
