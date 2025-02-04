@@ -1,9 +1,10 @@
 import { useDatabase } from "@altanlabs/database"
 import { ProductCard } from "./product-card"
 import { Skeleton } from "@/components/ui/skeleton"
+import type { Product } from "@/types/database"
 
 export function FeaturedProducts() {
-  const { records, isLoading } = useDatabase("Products", {
+  const { records, isLoading } = useDatabase<Product>("Products", {
     limit: 6,
     sort: [{ field: "created_at", direction: "desc" }],
     filters: [{ field: "status", operator: "eq", value: "Available" }],
@@ -34,7 +35,7 @@ export function FeaturedProducts() {
           condition={product.fields.condition}
           imageUrl={product.fields.images?.[0]?.url || "/placeholder-golf.jpg"}
           category={product.fields.category}
-          location="Location" // This should come from the seller's profile
+          location="Location" // This will be updated when we integrate with user profiles
         />
       ))}
     </div>
