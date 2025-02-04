@@ -1,4 +1,4 @@
-import { BrowserRouter as Router } from "react-router-dom"
+import { Outlet } from "react-router-dom"
 import { ThemeProvider } from "@/theme/theme-provider"
 import { DatabaseProvider } from "@altanlabs/database"
 import Layout from "./layout"
@@ -75,14 +75,14 @@ function App() {
   return (
     <DatabaseProvider config={databaseConfig}>
       <ThemeProvider defaultTheme="light" storageKey="golf-exchange-theme">
-        <Router>
-          <Layout
-            sidebarConfig={sidebarConfig}
-            header={headerConfig}
-            footer={footerConfig}
-          />
-          <Toaster />
-        </Router>
+        <Layout
+          sidebarConfig={sidebarConfig}
+          header={headerConfig}
+          footer={footerConfig}
+        >
+          <Outlet />
+        </Layout>
+        <Toaster />
       </ThemeProvider>
     </DatabaseProvider>
   )
